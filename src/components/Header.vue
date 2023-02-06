@@ -14,14 +14,14 @@
       </button>
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <a class="navbar-brand mt-2 mt-lg-0" href="#">
+        <div class="navbar-brand mt-2 mt-lg-0">
           <img
-            src="Success_Team.png"
+            src="../components/icons/texnomart-logo2.png"
             height="35"
             alt="SG Logo"
             loading="lazy"
           />
-        </a>
+        </div>
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item"><RouterLink class="nav-link" to="/"> Home </RouterLink></li>
           <li class="nav-item"><RouterLink class="nav-link" to="students"> Students </RouterLink></li>
