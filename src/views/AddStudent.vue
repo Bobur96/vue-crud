@@ -1,4 +1,4 @@
-<template lang="">
+<template>
     <div className="container mt-4">
       <div className="main-body">
         <div className="row gutters-sm">
@@ -62,7 +62,7 @@
                     <h6 className="mb-0">Full Name</h6>
                   </div>
                   <div className="col-sm-9 text-secondary">
-                    {studentId.fullName}
+                    <!-- {{studentId.fullName}} -->
                   </div>
                 </div>
                 <hr />
@@ -71,7 +71,7 @@
                     <h6 className="mb-0">University</h6>
                   </div>
                   <div className="col-sm-9 text-secondary">
-                    {studentId.universityName}
+                    <!-- {{studentId.universityName}} -->
                   </div>
                 </div>
                 <hr />
@@ -80,7 +80,7 @@
                     <h6 className="mb-0">Faculty</h6>
                   </div>
                   <div className="col-sm-9 text-secondary">
-                    {studentId.faculty}
+                    <!-- {{studentId.faculty}} -->
                   </div>
                 </div>
                 <hr />
@@ -89,7 +89,7 @@
                     <h6 className="mb-0">Speciality</h6>
                   </div>
                   <div className="col-sm-9 text-secondary">
-                    {studentId.speciality}
+                    <!-- {{studentId.speciality}} -->
                   </div>
                 </div>
                 <hr />
@@ -98,7 +98,7 @@
                     <h6 className="mb-0">Academic Type</h6>
                   </div>
                   <div className="col-sm-9 text-secondary">
-                    {{studentId.academicType}}
+                    <!-- {{studentId.academicType}} -->
                   </div>
                 </div>
                 <hr />
@@ -118,11 +118,11 @@
       </div>
     </div>
 </template>
+
 <script>
 export default {
-    
+    name: "AddStudent",
 }
 </script>
-<style lang="">
-    
-</style>
+
+<style></style>

@@ -64,11 +64,8 @@
               </div>
 
               <div id="scroll">
-                  <div
-                    key={el.id}
-                    class="card p-0 mb-3 border-0 shadow-sm shadow--on-hover"
-                  >
-                    <div class="card-body">
+                  <div class="card p-0 mb-3 border-0 shadow-sm shadow--on-hover">
+                    <div class="card-body" style="padding: 11px 13px">
                       <span class="row justify-content-between align-items-center">
                         <span class="col-md-4 col-9 color--heading">
                           <span
@@ -153,9 +150,94 @@ export default {
 
 <style scoped>
 section{
-    color: #555;
+  height: calc(100% - 63px);
+    color: #333;
+    /* border: 1px solid red; */
 }
-span.badge{
-    background-color: #555;
+section h5{
+  color: #999;
+}
+.color--heading {
+    color: #101f41 !important
+}
+#header{
+    font-weight: bold;
+}
+#strong{
+    text-transform: uppercase;
+}
+.color--text {
+    color: #333 !important;
+}
+span{
+  font-weight: 600;
+}
+.badge-circle {
+    border-radius: 50%;
+    height: 2.4rem;
+    width: 2.4rem;
+    font-size: 1rem;
+    line-height: 2.4rem;
+    padding: 0;
+}
+.text-white {
+    color: #fff!important;
+}
+.background--white,
+.bg-white {
+    background-color: #fff !important;
+}
+.background--brand,
+.background--primary,
+.bg-brand,
+.bg-primary {
+    background-color: #4d5bed !important;
+    color: #fff
+}
+.background--dark,
+.bg-dark {
+    background: #0c2050 !important;
+    color: #939eb8;
+}
+
+.background--tertiary,
+.bg-tertiary {
+    background-color: #9779e3 !important;
+}
+
+.background--danger,
+.bg-danger {
+    background-color: #f53d55 !important;
+}
+
+.background--success,
+.bg-success {
+    background-color: #66df7c !important;
+}
+
+.background--warning,
+.bg-warning {
+    background-color: #f6c460 !important;
+}
+
+.background--warning2,
+.bg-warning2 {
+    background-color: #f89c59 !important;
+}
+
+.background--info,
+.bg-info {
+    background-color: #52bbd3 !important;
+}
+
+.background--light,
+.bg-light {
+    background-color: #f6f8fb !important;
+}
+
+@media screen and (max-width: 768px) {
+    li .text-info{
+        margin: 0 5px;
+    }
 }
 </style>
