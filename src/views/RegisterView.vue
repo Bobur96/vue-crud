@@ -1,6 +1,5 @@
 <template>
-  <div className="llogin container p-4">
-    <ToastContainer />
+  <div id="register" className="llogin container p-4">
     <div className="row w-100 g-5 d-flex justify-content-evenly">
       <div className="d-none d-md-block col-md-5 my-auto">
         <img src="undraw_remotely_2j6y.svg" alt="Image" className="img-fluid" />
@@ -8,46 +7,51 @@
       <div className="col-md-5 d-flex justify-content-center">
         <div className="screen">
           <div className="screen__content">
-            <form onSubmit="{onSubmit}" className="login">
+            <form id="form" onSubmit="{onSubmit}" className="login">
+              <div className="login__field">
+                <i className="login__icon fas fa-users"></i>
+                <input
+                  type="text"
+                  ref="{fullname}"
+                  className="login__input"
+                  placeholder="Full name"
+                />
+              </div>
               <div className="login__field">
                 <i className="login__icon fas fa-user"></i>
                 <input
                   type="text"
-                  id="username"
                   ref="{username}"
                   className="login__input"
                   placeholder="User name"
-                  required
                 />
               </div>
               <div className="login__field">
                 <i className="login__icon fas fa-lock"></i>
                 <input
-                  id="password"
                   ref="{password}"
                   type="password"
                   className="login__input"
                   placeholder="Password"
                 />
               </div>
+              <div className="login__field">
+                <i className="login__icon fas fa-phone"></i>
+                <input
+                  ref="{phone}"
+                  type="text"
+                  className="login__input"
+                  placeholder="Phone"
+                />
+              </div>
               <button type="submit" className="button login__submit">
-                <span className="button__text">Log In Now</span>
+                <span className="button__text">Register In Now</span>
                 <i className="button__icon fas fa-chevron-right"></i>
               </button>
-              <div id="bold" className="text-center mt-4 text-warning">
-                Register <i className="fas fa-chevron-right mx-2"></i>
+              <div id="bold" className="text-center mt-3 text-warning">
+                Log In <i className="fas fa-chevron-right mx-2"></i>
               </div>
             </form>
-            <div className="social-login">
-              <div className="social-icons mt-5">
-                <a
-                  href="#/"
-                  className="social-login__icon fab fa-instagram"
-                ></a>
-                <a href="#/" className="social-login__icon fab fa-facebook"></a>
-                <a href="#/" className="social-login__icon fab fa-twitter"></a>
-              </div>
-            </div>
           </div>
           <div className="screen__background">
             <span
@@ -68,7 +72,6 @@
     </div>
   </div>
 </template>
-
 <script>
 export default {};
 </script>
