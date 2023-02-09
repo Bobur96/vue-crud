@@ -16,6 +16,9 @@ a,
 a.router-link-active{
   color: rgb(255, 242, 57) !important;
 }
+h5{
+  color: #999;
+}
 /* 
 @media (hover: hover) {
   a:hover {

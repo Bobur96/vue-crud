@@ -87,7 +87,7 @@
                         </span>
 
                         <span class="col-3 col-md-2 text-center color--text">
-                          <ul class="list-unstyled mb-0 d-flex justify-content-evenly">
+                          <ul v-if="!loading" class="list-unstyled mb-0 d-flex justify-content-evenly">
                             <li>
                               <span
                                 class="text-primary"
@@ -95,7 +95,7 @@
                                 title="view"
                                 data-original-title="view"
                               >
-                                <i class="far fa-eye"></i>
+                              <RouterLink to="/view-student"><i class="far fa-eye"></i></RouterLink>
                               </span>
                             </li>
                             <li>
@@ -106,7 +106,7 @@
                                 data-original-title="Edit"
                               >
                                 <!-- <i class="fas fa-pencil-alt"></i> -->
-                                <img width="14" src="../components/icons/pencil-edit.svg" alt="">
+                                <RouterLink to="/edit-student"><img width="14" src="../components/icons/pencil-edit.svg" alt=""></RouterLink>
                               </span>
                             </li>
                             <li>
@@ -120,6 +120,7 @@
                               </span>
                             </li>
                           </ul>
+                          <ul v-else>Loading...</ul>
                         </span>
                       </span>
                     </div>
@@ -136,19 +137,24 @@
 </template>
 
 <script>
+import { RouterLink, RouterView } from 'vue-router'
 export default {
     data(){
       return {
         name : "BU",
         fullName: "Bobur Usmonkhujaev",
         universityName: "TUIT",
-        academicType: "Bachelor"
+        academicType: "Bachelor",
+        loading: true
       }
     }
 };
 </script>
 
 <style scoped>
+i, img{
+  cursor: pointer;
+}
 section{
   height: calc(100% - 63px);
     color: #333;
@@ -165,6 +171,9 @@ section h5{
 }
 #strong{
     text-transform: uppercase;
+}
+.card-body{
+  background-color: rgb(207, 207, 207);
 }
 .color--text {
     color: #333 !important;
