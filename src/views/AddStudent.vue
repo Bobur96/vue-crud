@@ -1,139 +1,116 @@
 <template>
-  <div className="d-flex justify-content-center flex-column container py-3">
-    <form id="addform" @submit="onSubmit">
-      <div className="card form1">
-        <div className="card-header">
-          <h5 className="text-center">User Form</h5>
+  <div class="d-flex justify-content-center flex-column container py-3">
+    <div id="addform">
+      <div class="card form1">
+        <div class="card-header">
+          <h5 class="text-center">User Form</h5>
         </div>
-        <div className="card-body">
-          <div id="form" className="form-group row g-3 pb-3">
-            <div className="col-md-4">
-              <label htmlFor="fullName" className="form-label">
-                Full Name
-              </label>
-              <input
-                className="form-control form-control-sm"
-                v-model="fullName"
-                required
-              />
+        <div class="card-body">
+          <div id="form" class="form-group row g-3 pb-3">
+            <div class="col-md-4">
+              <label htmlFor="fullName" class="form-label">Full Name</label>
+              <input type="text" class="form-control form-control-sm" v-model="state.fullName"/>
+              <span v-if="v$.fullName.$error"> {{ v$.fullName.$errors[0].$message }} </span>
             </div>
-            <div className="col-md-4">
-              <label htmlFor="universityName" className="form-label">
-                University
-              </label>
-              <input
-                className="form-control form-control-sm"
-                id="universityName"
-                v-model="univercity"
-                required
-              />
+            <div class="col-md-4">
+              <label htmlFor="fullName" class="form-label">University</label>
+              <input type="text" class="form-control form-control-sm" v-model="state.univercity"/>
+              <span v-if="v$.univercity.$error"> {{ v$.univercity.$errors[0].$message }} </span>
             </div>
-            <div className="col-md-4">
-              <label htmlFor="entranceYear" className="form-label">
-                Entrance Year
-              </label>
-              <input
-                type="date"
-                className="form-control form-control-sm"
-                required
-              />
+            <div class="col-md-4">
+              <label htmlFor="entranceYear" class="form-label">Entrance Year</label>
+              <input type="date" class="form-control form-control-sm" v-model="state.entranceYear"/>
+              <span v-if="v$.entranceYear.$error"> {{ v$.entranceYear.$errors[0].$message }} </span>
             </div>
-            <div className="col-md-4">
-              <label htmlFor="graduationYear" className="form-label">
-                Graduation Year
-              </label>
-              <input
-                type="date"
-                className="form-control form-control-sm"
-                id="graduationYear"
-                required
-              />
+            <div class="col-md-4">
+              <label htmlFor="graduationYear" class="form-label">Graduation Year</label>
+              <input type="date" class="form-control form-control-sm" v-model="state.graduationYear"/>
+              <span v-if="v$.graduationYear.$error"> {{ v$.graduationYear.$errors[0].$message }} </span>
             </div>
-            <div className="col-md-4">
-              <label htmlFor="faculty" className="form-label"> Faculty </label>
-              <input
-                className="form-control form-control-sm"
-                v-model="faculty"
-                required
-              />
+            <div class="col-md-4">
+              <label htmlFor="faculty" class="form-label">Faculty</label>
+              <input type="text" class="form-control form-control-sm" v-model="state.faculty"/>
+              <span v-if="v$.faculty.$error"> {{ v$.faculty.$errors[0].$message }} </span>
             </div>
-            <div className="col-md-4">
-              <label htmlFor="academicLevel" className="form-label">
-                Academic Type
-              </label>
-              <input
-                className="form-control form-control-sm"
-                v-model="type"
-                required
-              />
+            <div class="col-md-4">
+              <label htmlFor="academicLevel" class="form-label">Academic Type</label>
+              <input type="text" class="form-control form-control-sm" v-model="state.type"/>
+              <span v-if="v$.type.$error"> {{ v$.type.$errors[0].$message }} </span>
             </div>
-            <div className="col-md-12 mt-1">
-              <RouterLink to="/students">
-                <button
-                  @click="addItem"
-                  className="btn btn-primary float-end mt-4"
-                  type="submit"
-                >
-                  Save
-                </button>
-              </RouterLink>
+            <div class="col-md-12 mt-1">
+              <button
+                @click="submitForm"
+                class="btn btn-primary float-end mt-4"
+                type="submit"
+              >
+                Save
+              </button>
             </div>
           </div>
         </div>
       </div>
-    </form>
+    </div>
   </div>
 </template>
 
 <script>
 import { RouterLink, RouterView } from "vue-router";
 import { store } from "../store/store.js";
+import { required } from "@vuelidate/validators";
+import { reactive, computed } from "vue";
+import useValidate from "@vuelidate/core";
 
 export default {
   name: "AddStudent",
-  data() {
-    return {
-      store,
-      errors: [],
+  setup() {
+    const state = reactive({
       fullName: "",
       univercity: "",
       entranceYear: "",
       graduationYear: "",
       faculty: "",
       type: "",
+    });
+    const rules = computed(() => {
+      return {
+        fullName: { required },
+        univercity: { required },
+        entranceYear: { required },
+        graduationYear: { required },
+        faculty: { required },
+        type: { required },
+      };
+    });
+    const v$ = useValidate(rules, state);
+    return { state, v$ };
+  },
+  data() {
+    return {
+      store,
     };
   },
   methods: {
-    addItem() {
-      const item = {
-        id: store.studentList.length + 1,
-        name: this.fullName.slice(0, 2),
-        fullName: this.fullName,
-        universityName: this.univercity,
-        faculty: this.faculty,
-        academicType: this.type,
-      };
-      store.studentList.push(item);
-      console.log(item);
+    submitForm() {
+      this.v$.$validate();
+      console.log(this.v$.$error);
+      // if (!this.v$.$error) {
+      //   alert("Form successfully submitted.");
+      // } else {
+      //   alert("Form failed validation");
+      // }
     },
-    checkForm: function (e) {
-      if (
-        this.fullName &&
-        this.univercity &&
-        this.entranceYear &&
-        this.graduationYear &&
-        this.faculty && this.type
-      ) {
-        return true;
-      }
-      this.errors = [];
-      if (!this.fullName) this.errors.push("Full name required.");
-      if (!this.univercity) this.errors.push("Univercity required.");
-      if (!this.entranceYear) this.errors.push("Entrance year required.");
-      if (!this.graduationYear) this.errors.push("Graduation year required.");
-      if (!this.faculty) this.errors.push("Faculty required.");
-      if (!this.type) this.errors.push("Type required.");
-    },
+    // addItem() {
+    //   const item = {
+    //     id: store.studentList.length + 1,
+    //     name: this.fullName.slice(0, 2),
+    //     fullName: this.fullName,
+    //     universityName: this.univercity,
+    //     faculty: this.faculty,
+    //     academicType: this.type,
+    //   };
+    //   store.studentList.push(item);
+    //   console.log(item);
+    // },
   },
 };
 </script>
