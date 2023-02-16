@@ -124,4 +124,7 @@ export default {
 .text-secondary{
   color: #ccc !important;
 }
+h6{
+  color: #aaa !important;
+}
 </style>

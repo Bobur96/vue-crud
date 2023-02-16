@@ -155,7 +155,7 @@
         </div>
       </div>
       <RouterLink to="/add-student">
-        <button class="btn btn-info" to="/add-student">Add Student</button>
+        <button class="btn btn-primary" to="/add-student">Add</button>
       </RouterLink>
     </div>
   </section>
@@ -194,7 +194,7 @@ img {
   cursor: pointer;
 }
 section {
-  height: calc(100% - 63px);
+  height: calc(100% - 64px);
   color: #333;
   /* border: 1px solid red; */
 }

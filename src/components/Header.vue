@@ -86,5 +86,6 @@ export default {};
 <style scoped>
 nav{
     width: 100%;
+    border-bottom: 1px solid rgb(26, 26, 26);
 }
 </style>
