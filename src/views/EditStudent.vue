@@ -5,9 +5,7 @@
         <div class="col-lg-4">
           <div class="card py-4 px-3">
             <div class="card-body">
-              <div
-                class="d-flex flex-column align-items-center text-center"
-              >
+              <div class="d-flex flex-column align-items-center text-center">
                 <img
                   src="https://bootdey.com/img/Content/avatar/avatar6.png"
                   alt="Admin"
@@ -17,7 +15,7 @@
                 <div class="mt-3">
                   <h5 class="mt-2">
                     <svg
-                      class="mb-1 me-1"
+                      class="mb-1 me-1 i"
                       width="16"
                       height="16"
                       xmlns="http://www.w3.org/2000/svg"
@@ -31,7 +29,7 @@
                   </h5>
                   <p class="text-secondary mb-1 mt-3">
                     <svg
-                      class="mb-1 me-1"
+                      class="mb-1 me-1 i"
                       width="16"
                       height="16"
                       xmlns="http://www.w3.org/2000/svg"
@@ -43,15 +41,14 @@
                     </svg>
                     {{ store.studentList[store.userId].universityName }}
                   </p>
-                  <p class="text-muted font-size-sm">
-                  </p>
+                  <p class="text-muted font-size-sm"></p>
                 </div>
               </div>
             </div>
           </div>
         </div>
         <div class="col-lg-8">
-          <form class="card was-validated p-2" onSubmit="{submit}">
+          <form class="card p-2">
             <div class="card-body">
               <div class="row mb-4">
                 <div class="col-sm-3">
@@ -61,9 +58,11 @@
                   <input
                     type="text"
                     class="form-control"
-                    v-model="store.studentList[store.userId].fullName"
-                    required
+                    v-model.trim="state.fullName"
                   />
+                  <span v-if="v$.fullName.$error">
+                    {{ v$.fullName.$errors[0].$message }}
+                  </span>
                 </div>
               </div>
               <div class="row mb-4">
@@ -74,9 +73,11 @@
                   <input
                     type="text"
                     class="form-control"
-                    v-model="store.studentList[store.userId].universityName"
-                    required
+                    v-model.trim="state.univercity"
                   />
+                  <span v-if="v$.univercity.$error">
+                    {{ v$.univercity.$errors[0].$message }}
+                  </span>
                 </div>
               </div>
               <div class="row mb-4">
@@ -87,9 +88,11 @@
                   <input
                     type="text"
                     class="form-control"
-                    v-model="store.studentList[store.userId].faculty"
-                    required
+                    v-model.trim="state.faculty"
                   />
+                  <span v-if="v$.faculty.$error">
+                    {{ v$.faculty.$errors[0].$message }}
+                  </span>
                 </div>
               </div>
               <div class="row mb-4">
@@ -100,15 +103,17 @@
                   <input
                     type="text"
                     class="form-control"
-                    v-model="store.studentList[store.userId].academicType"
-                    required
+                    v-model.trim="state.type"
                   />
+                  <span v-if="v$.type.$error">
+                    {{ v$.type.$errors[0].$message }}
+                  </span>
                 </div>
               </div>
               <div class="row">
                 <div class="col-sm-3"></div>
                 <div class="col-sm-9 text-secondary">
-                  <button type="submit" class="btn btn-primary">
+                  <button @click.prevent="submitForm" class="btn btn-primary">
                     Save Changes
                   </button>
                 </div>
@@ -122,24 +127,57 @@
 </template>
 
 <script>
-
 import { RouterLink, RouterView } from "vue-router";
-import { store } from '../store/store.js'
+import { store } from "../store/store.js";
+import router from "../router/index.js";
+import { required } from "@vuelidate/validators";
+import { reactive, computed } from "vue";
+import useValidate from "@vuelidate/core";
 
 export default {
-    name: "EditStudent",
-    data() {
-    return {
-      store
+  name: "EditStudent",
+  setup() {
+    const item = store.studentList[store.userId]
+    const state = reactive({
+      fullName: item.fullName,
+      univercity: item.universityName,
+      faculty: item.faculty,
+      type: item.academicType,
+    });
+    const rules = computed(() => {
+      return {
+        fullName: { required },
+        univercity: { required },
+        faculty: { required },
+        type: { required },
+      };
+    });
+
+    function submitForm() {
+      this.v$.$validate();
+      if (!this.v$.$error) {
+        const element = {
+          name: state.fullName.slice(0, 2).toUpperCase(),
+          fullName: state.fullName,
+          universityName: state.univercity,
+          faculty: state.faculty,
+          academicType: state.type,
+        };
+        store.studentList[store.userId] = element;
+        router.push('/students')
+      }
     }
+
+    const v$ = useValidate(rules, state);
+    return { state, v$, submitForm, store };
   },
 };
 </script>
 
 <style scoped>
-body{
+body {
   background: #fefff7;
-  margin-top:20px;
+  margin-top: 20px;
 }
 .card {
   position: relative;
@@ -150,25 +188,31 @@ body{
   background-color: #202020;
   background-clip: border-box;
   border: 0 solid transparent;
-  border-radius: .25rem;
+  border-radius: 0.25rem;
   margin-bottom: 1.5rem;
   box-shadow: rgba(250, 250, 250, 0.3) 0px 0px 0px 1px;
+  /* border: 1px solid rgba(255, 255, 255, 0.1); */
   /* border: 1px solid rgba(255, 255, 255, 0.2); */
 }
-input{
+input {
   background-color: #141414;
   color: #aaa;
+  /* outline: #fcff47; */
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
-input:focus{
+input:focus {
   background-color: #111;
-  color: #fefff7;
+  color: #dadada;
 }
 .me-2 {
-  margin-right: .5rem!important;
+  margin-right: 0.5rem !important;
 }
-.mb-4 .col-sm-3{
+.mb-4 .col-sm-3 {
   display: flex;
   align-items: center;
   padding-left: 3%;
+}
+.i{
+  fill: rgba(69, 147, 236, 0.5);
 }
 </style>

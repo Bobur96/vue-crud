@@ -104,6 +104,7 @@
 <script>
 import { RouterLink, RouterView } from "vue-router";
 import { store } from "../store/store.js";
+import router from "../router/index.js";
 import { required } from "@vuelidate/validators";
 import { reactive, computed } from "vue";
 import useValidate from "@vuelidate/core";
@@ -129,30 +130,25 @@ export default {
         type: { required },
       };
     });
-    const v$ = useValidate(rules, state);
-    return { state, v$ };
-  },
-  data() {
-    return {
-      store,
-    };
-  },
-  methods: {
-    submitForm() {
+
+    function submitForm() {
       this.v$.$validate();
       if (!this.v$.$error) {
         const item = {
           id: store.studentList.length + 1,
-          name: fullName.slice(0, 2),
-          fullName: fullName,
-          universityName: univercity,
-          faculty: faculty,
-          academicType: type,
+          name: state.fullName.slice(0, 2).toUpperCase(),
+          fullName: state.fullName,
+          universityName: state.univercity,
+          faculty: state.faculty,
+          academicType: state.type,
         };
         store.studentList.push(item);
-        console.log(item);
+        router.push('/students')
       }
-    },
+    }
+
+    const v$ = useValidate(rules, state);
+    return { state, v$, submitForm, store };
   },
 };
 </script>

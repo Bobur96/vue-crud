@@ -15,7 +15,7 @@
                   <div class="mt-3">
                     <h5>
                       <svg
-                        class="mb-1 me-1"
+                        class="mb-1 me-1 i"
                         width="16"
                         height="16"
                         xmlns="http://www.w3.org/2000/svg"
@@ -27,7 +27,7 @@
                     </h5>
                     <p class="text-secondary mb-1">
                       <svg
-                        class="mb-1 me-1"
+                        class="mb-1 me-1 i"
                         width="16"
                         height="16"
                         xmlns="http://www.w3.org/2000/svg"
@@ -126,5 +126,8 @@ export default {
 }
 h6{
   color: #aaa !important;
+}
+.i{
+  fill: rgba(69, 147, 236, 0.5);
 }
 </style>
