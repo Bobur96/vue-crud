@@ -9,33 +9,81 @@
           <div id="form" class="form-group row g-3 pb-3">
             <div class="col-md-4">
               <label htmlFor="fullName" class="form-label">Full Name</label>
-              <input type="text" class="form-control form-control-sm" v-model="state.fullName"/>
-              <span v-if="v$.fullName.$error"> {{ v$.fullName.$errors[0].$message }} </span>
+              <input
+                type="text"
+                class="form-control form-control-sm"
+                v-model.trim="state.fullName"
+                placeholder="Full name"
+              />
+              <span v-if="v$.fullName.$error">
+                {{ v$.fullName.$errors[0].$message }}
+              </span>
             </div>
             <div class="col-md-4">
-              <label htmlFor="fullName" class="form-label">University</label>
-              <input type="text" class="form-control form-control-sm" v-model="state.univercity"/>
-              <span v-if="v$.univercity.$error"> {{ v$.univercity.$errors[0].$message }} </span>
+              <label htmlFor="University" class="form-label">University</label>
+              <input
+                type="text"
+                class="form-control form-control-sm"
+                v-model.trim="state.univercity"
+                placeholder="University"
+              />
+              <span v-if="v$.univercity.$error">
+                {{ v$.univercity.$errors[0].$message }}
+              </span>
             </div>
             <div class="col-md-4">
-              <label htmlFor="entranceYear" class="form-label">Entrance Year</label>
-              <input type="date" class="form-control form-control-sm" v-model="state.entranceYear"/>
-              <span v-if="v$.entranceYear.$error"> {{ v$.entranceYear.$errors[0].$message }} </span>
+              <label htmlFor="entranceYear" class="form-label"
+                >Entrance Year</label
+              >
+              <input
+                type="date"
+                class="form-control form-control-sm"
+                v-model.trim="state.entranceYear"
+                placeholder="Entrance Year"
+              />
+              <span v-if="v$.entranceYear.$error">
+                {{ v$.entranceYear.$errors[0].$message }}
+              </span>
             </div>
             <div class="col-md-4">
-              <label htmlFor="graduationYear" class="form-label">Graduation Year</label>
-              <input type="date" class="form-control form-control-sm" v-model="state.graduationYear"/>
-              <span v-if="v$.graduationYear.$error"> {{ v$.graduationYear.$errors[0].$message }} </span>
+              <label htmlFor="graduationYear" class="form-label"
+                >Graduation Year</label
+              >
+              <input
+                type="date"
+                class="form-control form-control-sm"
+                v-model.trim="state.graduationYear"
+                placeholder="Graduation Year"
+              />
+              <span v-if="v$.graduationYear.$error">
+                {{ v$.graduationYear.$errors[0].$message }}
+              </span>
             </div>
             <div class="col-md-4">
               <label htmlFor="faculty" class="form-label">Faculty</label>
-              <input type="text" class="form-control form-control-sm" v-model="state.faculty"/>
-              <span v-if="v$.faculty.$error"> {{ v$.faculty.$errors[0].$message }} </span>
+              <input
+                type="text"
+                class="form-control form-control-sm"
+                v-model.trim="state.faculty"
+                placeholder="Faculty"
+              />
+              <span v-if="v$.faculty.$error">
+                {{ v$.faculty.$errors[0].$message }}
+              </span>
             </div>
             <div class="col-md-4">
-              <label htmlFor="academicLevel" class="form-label">Academic Type</label>
-              <input type="text" class="form-control form-control-sm" v-model="state.type"/>
-              <span v-if="v$.type.$error"> {{ v$.type.$errors[0].$message }} </span>
+              <label htmlFor="academicLevel" class="form-label"
+                >Academic Type</label
+              >
+              <input
+                type="text"
+                class="form-control form-control-sm"
+                v-model.trim="state.type"
+                placeholder="Academic type"
+              />
+              <span v-if="v$.type.$error">
+                {{ v$.type.$errors[0].$message }}
+              </span>
             </div>
             <div class="col-md-12 mt-1">
               <button
@@ -92,41 +140,35 @@ export default {
   methods: {
     submitForm() {
       this.v$.$validate();
-      console.log(this.v$.$error);
-      // if (!this.v$.$error) {
-      //   alert("Form successfully submitted.");
-      // } else {
-      //   alert("Form failed validation");
-      // }
+      if (!this.v$.$error) {
+        const item = {
+          id: store.studentList.length + 1,
+          name: fullName.slice(0, 2),
+          fullName: fullName,
+          universityName: univercity,
+          faculty: faculty,
+          academicType: type,
+        };
+        store.studentList.push(item);
+        console.log(item);
+      }
     },
-    // addItem() {
-    //   const item = {
-    //     id: store.studentList.length + 1,
-    //     name: this.fullName.slice(0, 2),
-    //     fullName: this.fullName,
-    //     universityName: this.univercity,
-    //     faculty: this.faculty,
-    //     academicType: this.type,
-    //   };
-    //   store.studentList.push(item);
-    //   console.log(item);
-    // },
   },
 };
 </script>
 
 <style scoped>
 input {
-  background-color: rgb(107, 107, 107);
-  color: #f4f5ed;
-  font-weight: 400;
+  background-color: rgb(228, 228, 228);
+  font-weight: 500;
 }
-input:focus {
-  background-color: rgb(163, 163, 163);
-  color: #000000;
-}
+
 label,
 h5 {
   color: #c2c4b1;
+}
+span {
+  color: rgb(211, 29, 29);
+  font-size: 13px;
 }
 </style>
